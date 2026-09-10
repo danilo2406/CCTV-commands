@@ -1,14 +1,16 @@
 package main;
 
-import gui.*;
-import utils.*;
+import gui.GlavniProzor;
+import utils.Citac;
+import utils.Posiljalac;
 
 public class Main {
 	
 	public static void main(String[] args) {
 		
 		Citac c = Citac.getInstance();
-		GlavniProzor gp = new GlavniProzor(c);
+		Posiljalac p = Posiljalac.getInstance();
+		new GlavniProzor(c, p);
 		
 	}
 	

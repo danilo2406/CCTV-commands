@@ -14,15 +14,14 @@ public class Citac {
 	
 	private static Citac instance = null;
 	private ArrayList<String> komande = new ArrayList<>();
-	
-	private int komandeIndx = 0;
 
 	private Citac() {}
 
 	public static Citac getInstance() {
 		
-		if (instance == null)
-            instance = new Citac();
+		if (instance == null) {
+			instance = new Citac();
+		}
         return instance;
 		
 	}
@@ -51,7 +50,9 @@ public class Citac {
 			try (BufferedReader br = Files.newBufferedReader(Paths.get(s))) {
 				String line;
 				while ((line = br.readLine()) != null) {
-					komande.add(line.substring(8));
+					if (!line.isBlank()) {
+				        komande.add(line);
+				    }
 				}
 			}
 		}
@@ -69,19 +70,12 @@ public class Citac {
 		}
 	}
 	
-	public String getKomanda() {
-		if (komandeIndx <= komande.size() - 1) {
-			return komande.get(komandeIndx);
-		}
-		return null;
+	public ArrayList<String> getKomande() {
+		return komande;
 	}
 	
-	public void sledecaKomanda() {
-		komandeIndx++;
-	}
-	
-	public void resetKomanda() {
-		komandeIndx = 0;
+	public void obrisiKomande() {
+		komande.clear();
 	}
 
 }

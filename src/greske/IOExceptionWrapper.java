@@ -11,7 +11,7 @@ public class IOExceptionWrapper extends GreskaAdapter {
 			return "Fajl ne postoji";
 		}
 		else {
-			return "Greska u citanju fajla";
+			return "Greška u citanju fajla";
 		}
 	}
 	

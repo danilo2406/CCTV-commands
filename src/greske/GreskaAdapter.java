@@ -3,7 +3,7 @@ package greske;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GreskaAdapter extends Exception implements Greska {
+public class GreskaAdapter extends Exception {
 	
 	public GreskaAdapter(String s) {
 		super(s);
@@ -33,7 +33,7 @@ public class GreskaAdapter extends Exception implements Greska {
 			Panel okPanel = new Panel();
 			Button ok = new Button("OK");
 			ok.setPreferredSize(new Dimension(80, 35));
-		    ok.setFont(new Font("Dialog", Font.PLAIN, 15));
+		    ok.setFont(new Font("Dialog", Font.PLAIN, 20));
 			okPanel.add(ok);
 			add(okPanel, BorderLayout.SOUTH);
 			
@@ -58,10 +58,8 @@ public class GreskaAdapter extends Exception implements Greska {
 		
 	}
 	
-	
-	@Override
 	public void iskoci() {
-		greskaProzor g = new greskaProzor();
+		new greskaProzor();
 	}
 	
 }

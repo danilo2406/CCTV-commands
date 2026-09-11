@@ -14,8 +14,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import greske.GreskaUSlanjuKomande;
-import utils.Posiljalac;
 import utils.Odgovor;
+import utils.Posiljalac;
 
 public class IzvestajOdgovora extends Frame {
 	
@@ -60,8 +60,8 @@ public class IzvestajOdgovora extends Frame {
 	    TextArea uspesniTA = new TextArea("", 0, 0, TextArea.SCROLLBARS_VERTICAL_ONLY);
 	    TextArea neuspesniTA = new TextArea("", 0, 0, TextArea.SCROLLBARS_VERTICAL_ONLY);
 		
-	    uspesniTA.setFont(new Font("Dialog", Font.PLAIN, 20));
-	    neuspesniTA.setFont(new Font("Dialog", Font.PLAIN, 20));
+	    uspesniTA.setFont(new Font("Monospaced", Font.PLAIN, 18));
+	    neuspesniTA.setFont(new Font("Monospaced", Font.PLAIN, 18));
 		uspesniTA.setEditable(false);
 	    neuspesniTA.setEditable(false);
 	    
@@ -77,11 +77,11 @@ public class IzvestajOdgovora extends Frame {
 			if (o.isUspesan()) {
 	            uspesniTekst.append(url).append("\n");
 	            uspesniTekst.append("ODGOVOR:\n").append(o.getTekst()).append("\n");
-	            uspesniTekst.append("-".repeat(40)).append("\n\n");
+	            uspesniTekst.append("-".repeat(20)).append("\n\n");
 	        } else {
 	            neuspesniTekst.append(url).append("\n");
 	            neuspesniTekst.append("KOD GREŠKE: ").append(o.getKod()).append("\n\n");
-	            neuspesniTekst.append("-".repeat(40)).append("\n\n");
+	            neuspesniTekst.append("-".repeat(20)).append("\n\n");
 	        }
 			int sirina = izracunajSirinuTeksta(url, taFont);
 	        if (sirina > maxSirina) maxSirina = sirina;

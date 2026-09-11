@@ -8,7 +8,8 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import greske.*;
+import greske.GreskaUImenuFajla;
+import greske.IOExceptionWrapper;
 
 public class Citac {
 	
@@ -76,6 +77,10 @@ public class Citac {
 	
 	public void obrisiKomande() {
 		komande.clear();
+	}
+	
+	public int getUkupnoKomandi() {
+		return komande.size();
 	}
 
 }

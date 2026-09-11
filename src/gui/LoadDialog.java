@@ -1,18 +1,31 @@
 package gui;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Button;
+import java.awt.Checkbox;
+import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Label;
+import java.awt.Panel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JFileChooser;
 
 import utils.Citac;
 import utils.Posiljalac;
 
 public class LoadDialog extends Dialog {
 	
-	private String imeFajlaVar;
-	private TextField imeFajla = new TextField();
+	private String imeFajla;
 	private Posiljalac posiljalac;
 	private Citac citac;
 	private Checkbox brisanjePodataka;
+	private String putDoFajla;
 	
 	public LoadDialog(Frame owner, Posiljalac p, Citac c) {
 		
@@ -43,18 +56,36 @@ public class LoadDialog extends Dialog {
 		
 		Panel sadrzaj = new Panel(new GridLayout(0, 1));
 		
-		Panel p = new Panel();
-		
-		Label l = new Label("Unesite ime fajla iz koga želite da učitate podatke");
+		Panel p = new Panel(new GridBagLayout());
+		Label l = new Label("Odaberite fajl iz koga želite da učitate podatke");
 		l.setFont(new Font("Dialog", Font.PLAIN, 25));
 		p.add(l);
 		sadrzaj.add(p);
 		
-		Panel field = new Panel();
-		imeFajla.setPreferredSize(new Dimension(300, 40));
-		imeFajla.setFont(new Font("Dialog", Font.PLAIN, 20));
-		field.add(imeFajla);
-		sadrzaj.add(field);
+		Panel odabirP = new Panel();
+		Button odabir = new Button("Odaberi");
+		odabir.setPreferredSize(new Dimension(120, 50));
+	    odabir.setFont(new Font("Dialog", Font.PLAIN, 22));
+	    odabirP.add(odabir);
+	    sadrzaj.add(odabirP);
+	    
+	    Panel odabraniFajlPanel = new Panel(); 
+	    Label odabraniFajl = new Label("---Nije odabran nijedan fajl---", Label.CENTER);
+	    odabraniFajl.setFont(new Font("Dialog", Font.BOLD, 18));
+	    odabraniFajlPanel.add(odabraniFajl);
+		sadrzaj.add(odabraniFajlPanel);
+	    
+	    odabir.addActionListener((ae) -> {
+	    	JFileChooser fc = new JFileChooser();
+	    	int returnVal = fc.showOpenDialog(this);
+	    	if (returnVal == JFileChooser.APPROVE_OPTION) {
+	    		imeFajla = fc.getSelectedFile().getName();
+	    		putDoFajla = fc.getSelectedFile().getAbsolutePath();
+	    		odabraniFajl.setText(imeFajla);
+	    		pack();
+	    		revalidate();
+	    	}
+	    });
 		
 		Panel brisanjePodatakaPanel = new Panel();
 		brisanjePodataka = new Checkbox("Obriši postojeće podatke");
@@ -77,39 +108,29 @@ public class LoadDialog extends Dialog {
 		add(buttonPanel, BorderLayout.SOUTH);
 		
 		load.addActionListener((ae) -> {
-			ucitaj();
+			if (brisanjePodataka.getState()) {
+				posiljalac.obrisiPodatke();
+				citac.obrisiKomande();
+			}
+			dispose();
 		});
 		
 		cancel.addActionListener((ae) -> {
 			dispose();
 		});
-		
-		imeFajla.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					ucitaj();
-				}
-			}
-		});
-		
+
 		add(sadrzaj, BorderLayout.CENTER);
 		
 		pack();
 		
 	}
 	
-	private void ucitaj() {
-		imeFajlaVar = imeFajla.getText();
-		if (brisanjePodataka.getState()) {
-			posiljalac.obrisiPodatke();
-			citac.obrisiKomande();
-		}
-		dispose();
+	public String getImeFajla() {
+		return imeFajla;
 	}
 	
-	public String getImeFajla() {
-		return imeFajlaVar;
+	public String getPutDoFajla() {
+		return putDoFajla;
 	}
 	
 }
